@@ -18,20 +18,31 @@ from sqlalchemy.exc import OperationalError
 def upload():
     if request.files:
         try:
+            #优先查找数据库 然后再保存
             file_name = request.files['file'].filename
-            file.save(request.files['file'],name=file_name)
-            try:
-                f = File(name=file_name)
-                db.session.add(f)
-                db.session.commit()
-            except OperationalError:
-                db.create_all()
-                f = File(name=file_name)
-                db.session.add(f)
-                db.session.commit()
-            return http_response(200,'ok','file uploaded')
+            if search_file(file_name):
+                file.save(request.files['file'],name=file_name)
+                try:
+                    f = File(name=file_name)
+                    db.session.add(f)
+                    db.session.commit()
+                except OperationalError:
+                    db.create_all()
+                    f = File(name=file_name)
+                    db.session.add(f)
+                    db.session.commit()
+                return http_response(200,'ok','file uploaded')
+            else:
+                return http_response(250, 'bad', 'file exist')
 
         except UploadNotAllowed:
             http_response(250, 'bad', 'file ext not allowed')
 
     return http_response(250, 'bad', 'file upload filed')
+
+def search_file(name):
+    f = File.query.filter_by(name=name).first()
+    if f:
+        return False
+    else:
+        return True

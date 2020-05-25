@@ -14,6 +14,7 @@ from . import file_upload
 from . import file_list
 from . import file_info
 from . import file_delete
+from . import search
 
 from . import db_init
 from . import db_del

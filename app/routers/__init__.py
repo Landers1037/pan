@@ -10,6 +10,7 @@ from flask_cors import CORS
 api = Blueprint('api',__name__)
 CORS(api)
 
+
 from . import file_upload
 from . import file_list
 from . import file_info
@@ -20,4 +21,6 @@ from . import db_init
 from . import db_del
 
 from . import login
+from . import logout
 from . import sign_up
+from . import cancel_account

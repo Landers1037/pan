@@ -14,14 +14,21 @@ from flask import request
 def sign_up():
     if request.json:
         try:
+            #添加用户的去重
             name = request.json.get('name','test')
             password = request.json.get('password','123456')
-            u = User(name=name,password=password)
-            db.session.add(u)
-            db.session.commit()
+            get_user = User.query.filter_by(name=name).first()
+            if get_user:
+                return  http_response(250, 'bad', 'user already exist')
+            try:
+                u = User(name=name,password=password)
+                db.session.add(u)
+                db.session.commit()
+            except:
+                db.session.rollback()
+                return http_response(250, 'bad', 'user added failed')
             # pass
         except:
-            db.session.rollback()
             return http_response(250, 'bad', 'user added failed')
 
         return http_response(200,'ok','user added success')

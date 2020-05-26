@@ -15,13 +15,18 @@ import os
 @api.route('/api/file_delete',methods=['POST'])
 @jwt_required
 def file_delete():
+    """
+    delete file by it's hex name
+    if exists, also remove from disk
+    :return:
+    """
     if request.json:
         try:
             name = request.json['name']
-            f = File.query.filter_by(name=name).first()
+            f = File.query.filter_by(hex=name).first()
             if f:
                 try:
-                    path = file.path(f.name)
+                    path = file.path(f.hex)
                     os.remove(path)
                     db.session.delete(f)
                     db.session.commit()

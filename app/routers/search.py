@@ -14,6 +14,10 @@ from flask import request
 @api.route('/api/search')
 @jwt_required
 def file_search():
+    """
+    search file in database
+    :return:
+    """
     try:
         word = request.args.get('word')
         fl = File.query.filter(File.name.contains(word)).all()

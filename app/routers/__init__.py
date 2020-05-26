@@ -15,10 +15,13 @@ from . import file_upload
 from . import file_list
 from . import file_info
 from . import file_delete
+from . import file_download
+from . import file_update
 from . import search
 
 from . import db_init
 from . import db_del
+
 
 from . import login
 from . import logout

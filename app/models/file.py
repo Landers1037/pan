@@ -11,15 +11,21 @@ class File(db.Model):
     __tablename__ = 'file'
     id = db.Column(db.Integer,autoincrement=True,primary_key=True)
     name = db.Column(db.String(100),nullable=False)
+    hex = db.Column(db.String(100),nullable=False)
     time = db.Column(db.String(100))
+    category = db.Column(db.String(50),default='default')
 
-    def __init__(self,name):
+
+    def __init__(self,name,hex):
         self.name = name
+        self.hex = hex
         self.time = time.strftime('%Y-%m-%d',time.localtime())
 
     def info(self):
         return {
             "id": self.id,
             "name": self.name,
-            "time": self.time
+            "hex": self.hex,
+            "time": self.time,
+            "category": self.category
         }

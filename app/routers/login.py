@@ -21,7 +21,7 @@ def login():
                 token = create_access_token(identity=name)
                 return http_response(200,'ok',token)
             else:
-                return http_response(250,'bad','user ilegal')
+                return http_response(250,'bad','user illegal')
         except:
             return http_response(500,'bad','login failed')
 

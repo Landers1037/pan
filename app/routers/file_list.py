@@ -13,6 +13,10 @@ from app import jwt_required
 @api.route('/api/file_list')
 @jwt_required
 def file_list():
+    """
+    return all file list
+    :return:
+    """
     try:
         fl = File.query.all()
         flist = [f.info() for f in fl]
@@ -20,4 +24,4 @@ def file_list():
 
     except Exception as e:
         print(e.args)
-        return http_response(250,'bad','get file-list failed')
+        return http_response(250,'bad','get file_list failed')

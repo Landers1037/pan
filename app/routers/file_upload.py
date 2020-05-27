@@ -28,6 +28,7 @@ def upload():
             #无需考虑文件名重复的问题
             hex = secure_name(file_name)
             file.save(request.files['file'],name=hex)
+
             try:
                 f = File(name=file_name,hex=hex)
                 db.session.add(f)

@@ -63,7 +63,7 @@ ARCHIVES = tuple('gz bz2 zip tar tgz txz 7z'.split())
 EXECUTABLES = tuple('so exe dll'.split())
 
 #: The default allowed extensions - `TEXT`, `DOCUMENTS`, `DATA`, and `IMAGES`.
-DEFAULTS = TEXT + DOCUMENTS + IMAGES + DATA
+DEFAULTS = TEXT + DOCUMENTS + IMAGES + DATA + AUDIO + ARCHIVES + SCRIPTS +EXECUTABLES
 
 
 class UploadNotAllowed(Exception):
@@ -303,11 +303,14 @@ class UploadSet(object):
                          with the app, it should return the default upload
                          destination path for that app.
     """
-    def __init__(self, name='files', extensions=DEFAULTS, default_dest=None):
+    def __init__(self, name='files', extensions=None, default_dest=None):
         if not name.isalnum():
             raise ValueError("Name must be alphanumeric (no underscores)")
         self.name = name
-        self.extensions = extensions
+        if extensions == 'DEFAULTS':
+            self.extensions = DEFAULTS
+        else:
+            self.extensions = ALL
         self._config = None
         self.default_dest = default_dest
 

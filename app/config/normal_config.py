@@ -17,7 +17,7 @@ class Normal_Config:
     MAX_CONTENT_LENGTH = 100 * 1024 * 1024 * 1024
     UPLOADED_FILE_DEST = os.path.join(os.getcwd(),'upload_file')
     UPLOADED_FILE_URL = FILE_SERVER_URI + FILE_PATH
-    UPLOADED_FILE_ALLOW = ('')
+    UPLOADED_FILE_ALLOW = ('',)
     UPLOADED_FILE_DENY = ('bat', 'sh','db','sqlite','sql','bash','o')
     UPLOADS_DEFAULT_DEST = os.path.join(os.getcwd(),'upload_file')
     UPLOADS_DEFAULT_URL = FILE_SERVER_URI + FILE_PATH

@@ -11,7 +11,7 @@ from flask import request
 from app.custom.flask_uploads import UploadNotAllowed
 from app.models import File
 from app import db,jwt_required
-from app.utils import secure_name
+from app.utils import secure_name,auto_category
 from sqlalchemy.exc import OperationalError
 
 @api.route('/api/upload',methods=['POST'])
@@ -27,10 +27,11 @@ def upload():
             file_name = request.files['file'].filename
             #无需考虑文件名重复的问题
             hex = secure_name(file_name)
+            cate = auto_category(hex)
             file.save(request.files['file'],name=hex)
 
             try:
-                f = File(name=file_name,hex=hex)
+                f = File(name=file_name,hex=hex,category=cate)
                 db.session.add(f)
                 db.session.commit()
 

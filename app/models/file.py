@@ -16,10 +16,11 @@ class File(db.Model):
     category = db.Column(db.String(50),default='default')
 
 
-    def __init__(self,name,hex):
+    def __init__(self,name,hex,category):
         self.name = name
         self.hex = hex
         self.time = time.strftime('%Y-%m-%d',time.localtime())
+        self.category = category
 
     def info(self):
         return {

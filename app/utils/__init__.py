@@ -5,3 +5,4 @@
 # File: __init__.py
 
 from .secure_name import secure_name
+from .auto_category import auto_category

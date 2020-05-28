@@ -31,7 +31,8 @@ def file_info():
                 "name": f.name,
                 "time": f.time,
                 "hex": f.hex,
-                "url": url
+                "url": url,
+                "category": f.category
             }
             return http_response(200,'ok',fdict)
         else:

@@ -14,16 +14,22 @@ from app import jwt_required,db
 @jwt_required
 def file_update():
     """
-    update file's name, hex name is unique but name(origin name) can be same
+    update file's name,category, hex name is unique but name(origin name) can be same
     :return:
     """
     if request.json:
         try:
             hex_name = request.json.get('hex_name')
+            category = request.json.get('category','default')
             name = request.json.get('name')
+            #对all分类去重
+            if category == 'all':
+                category = 'default'
+
             f = File.query.filter_by(hex=hex_name).first()
-            if f and name:
+            if f and name and category:
                 f.name = name
+                f.category = category
                 db.session.commit()
                 return http_response(200,'ok','file info updated')
             else:
